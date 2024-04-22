@@ -1,0 +1,111 @@
+<?php
+
+include '../koneksi.php';
+
+session_start();
+if (!isset($_SESSION['user'])){
+    echo '<script>alert("login dlu ka");
+    location.replace("../login.php")</script>';
+}
+
+if (isset($_GET['id'])){
+    $id = $_GET['id'];
+    $user = $conn->query("SELECT * FROM user WHERE id_users = '$id'")->fetch_assoc();
+}
+
+if (isset($_POST['update'])){
+    $nama = $_POST['nama'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $simpan = $conn->query("UPDATE user SET name = '$nama', username = '$username', password = '$password'
+    WHERE id_users = '$id'");
+
+    if ($simpan) {
+        echo '<script>alert("data diupdate");
+        location.replace("index.php")</script>';
+    }else{
+        echo '<script>alert("data gagal diupdate");
+        location.replace("index.php")</script>';
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Edit</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-secondary ">
+        <div class="container ">
+            <a class="navbar-brand fw-bold" href="#" style="color:#3434cf;">Warung Kita</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../produk">Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../order">Pesan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../report">Laporan</a>
+                    </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../logout.php">Keluar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Tambah Admin</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-grup mb-3">
+                                        <label class="form-label" for="">Nama</label>
+                                        <input type="text" required name="nama" placeholder="Nama" class="form-control" value="<?= $user['name'] ?>" >
+                                    </div>
+                                    <div class="form-grup mb-3">
+                                        <label class="form-label" for="">Username</label>
+                                        <input type="text" required name="username" placeholder="Username" class="form-control" value="<?= $user['username'] ?>" >
+                                    </div>
+                                    <div class="form-grup mb-3">
+                                        <label class="form-label" for="">Password</label>
+                                        <input type="text" required name="password" placeholder="Password" class="form-control" value="<?= $user['password'] ?>" >
+                                    </div>
+                                    <div class="form-group text-end">
+                                <button type="submit" name="update" class="btn btn-success btn-lg w-100 mt-4">Perbarui</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
+</body>
+</html>
