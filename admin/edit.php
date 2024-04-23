@@ -3,17 +3,17 @@
 include '../koneksi.php';
 
 session_start();
-if (!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     echo '<script>alert("login dlu ka");
     location.replace("../login.php")</script>';
 }
 
-if (isset($_GET['id'])){
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $user = $conn->query("SELECT * FROM user WHERE id_users = '$id'")->fetch_assoc();
 }
 
-if (isset($_POST['update'])){
+if (isset($_POST['update'])) {
     $nama = $_POST['nama'];
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -24,7 +24,7 @@ if (isset($_POST['update'])){
     if ($simpan) {
         echo '<script>alert("data diupdate");
         location.replace("index.php")</script>';
-    }else{
+    } else {
         echo '<script>alert("data gagal diupdate");
         location.replace("index.php")</script>';
     }
@@ -33,6 +33,7 @@ if (isset($_POST['update'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,16 +41,17 @@ if (isset($_POST['update'])){
     <title>Admin | Edit</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-secondary ">
+    <nav class="navbar navbar-expand-lg bg-body-secondary ">
         <div class="container ">
-            <a class="navbar-brand fw-bold" href="#" style="color:#3434cf;">Warung Kita</a>
+            <a class="navbar-brand fw-bold" style="color:#3434cf; font-size: 24px;" href="#">Warung Kita</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="../produk">Produk</a>
                     </li>
@@ -62,8 +64,8 @@ if (isset($_POST['update'])){
                     <li class="nav-item">
                         <a class="nav-link" href="../report">Laporan</a>
                     </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
+                </ul>
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item ">
                         <a class="nav-link" href="../logout.php">Keluar</a>
                     </li>
@@ -85,27 +87,28 @@ if (isset($_POST['update'])){
                                 <div class="col-lg-12">
                                     <div class="form-grup mb-3">
                                         <label class="form-label" for="">Nama</label>
-                                        <input type="text" required name="nama" placeholder="Nama" class="form-control" value="<?= $user['name'] ?>" >
+                                        <input type="text" required name="nama" placeholder="Nama" class="form-control" value="<?= $user['name'] ?>">
                                     </div>
                                     <div class="form-grup mb-3">
                                         <label class="form-label" for="">Username</label>
-                                        <input type="text" required name="username" placeholder="Username" class="form-control" value="<?= $user['username'] ?>" >
+                                        <input type="text" required name="username" placeholder="Username" class="form-control" value="<?= $user['username'] ?>">
                                     </div>
                                     <div class="form-grup mb-3">
                                         <label class="form-label" for="">Password</label>
-                                        <input type="text" required name="password" placeholder="Password" class="form-control" value="<?= $user['password'] ?>" >
+                                        <input type="text" required name="password" placeholder="Password" class="form-control" value="<?= $user['password'] ?>">
                                     </div>
                                     <div class="form-group text-end">
-                                <button type="submit" name="update" class="btn btn-success btn-lg w-100 mt-4">Perbarui</button>
+                                        <button type="submit" name="update" class="btn btn-success btn-lg w-100 mt-4">Perbarui</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-<source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
+        <source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
 </body>
+
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-include'../koneksi.php';
+include '../koneksi.php';
 
 session_start();
 if (!isset($_SESSION['user'])) {
@@ -16,18 +16,18 @@ if (isset($_POST['simpan'])) {
     $stok = $_POST['stok'];
     $direktori = "berkas/";
     $photo = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'],$direktori.$photo);
+    move_uploaded_file($_FILES['image']['tmp_name'], $direktori . $photo);
 
     $simpan = $conn->query("INSERT INTO products VALUES 
     (NULL, '$nama','$harga','$stok', '$photo')");
 
-if ($simpan) {
-    echo '<script>alert("Data Berhasil Disimpan");
+    if ($simpan) {
+        echo '<script>alert("Data Berhasil Disimpan");
     location.replace("index.php");</script>';
-  } else {
-    echo '<script>alert("Kurang jago Nyimpennya Luwh");
+    } else {
+        echo '<script>alert("Kurang jago Nyimpennya Luwh");
     location.replace("index.php");</script>';
-  }
+    }
 }
 
 if (isset($_POST['delete'])) {
@@ -36,7 +36,7 @@ if (isset($_POST['delete'])) {
     if ($delete) {
         echo '<script>alert("data berhasil dihapus");
         location.replace("index.php")</script>';
-    }else {
+    } else {
         echo '<script>alert("data gagal dihapus");
         location.replace("index.php")</script>';
     }
@@ -50,6 +50,7 @@ if (isset($_POST['delete'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,15 +58,16 @@ if (isset($_POST['delete'])) {
     <title>Produk</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-body-secondary ">
+    <nav class="navbar navbar-expand-lg bg-body-secondary ">
         <div class="container ">
-            <a class="navbar-brand fw-bold" href="#" style="color:#3434cf;">Warung Kita</a>
+            <a class="navbar-brand fw-bold" style="color:#3434cf; font-size: 24px;" href="#">Warung Kita</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php">Produk</a>
                     </li>
@@ -78,8 +80,8 @@ if (isset($_POST['delete'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="../report">Laporan</a>
                     </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
+                </ul>
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="../logout.php">Keluar</a>
                     </li>
@@ -114,7 +116,7 @@ if (isset($_POST['delete'])) {
                                     <div class="form-grup mb-3">
                                         <label class="form-label" for="">Thumbnail</label>
                                         <input type="file" id="image" required name="image" class="form-control">
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group text-end">
@@ -125,50 +127,50 @@ if (isset($_POST['delete'])) {
                 </div>
             </div>
         </div>
-    
 
-    <div class="row justify-content-center mb-5 pt-5">
-        <div class="col-lg-10">
-            <div class="card ">
-                <div class="card-body">
-                <div class="col-lg-4">
-                        <input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari...">
-                    </div>
-                    <table class=" table table-hover">
-                        <thead>
-                            <tr class="text-center">
-                                <th>#</th>
-                                <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Stok</th>
-                                <th>Thumbnail</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($produk as $content) { ?>
-                                <tr>
-                                    <td class="text-center"><?= $no++ ?></td>
-                                    <td class="text-center"><?= $content['name'] ?></td>
-                                    <td class="text-center"><?= number_format($content['price']) ?></td>
-                                    <td class="text-center"><?= $content['stock'] ?></td>
-                                    <td class="text-center"><img src="berkas/<?= $content['image']?>" style="height:100px;" ></td>
-                                    <td class="text-center">
-                                        <a href="edit.php?id=<?= $content['id_product'] ?>" class="btn btn-warning text-white btn-sm">Ubah <i class="bi bi-pencil-fill"></i></a>
-                                        <form action="" method="POST">
-                                            <input type="hidden" name="id" value="<?= $content['id_product'] ?>">
-                                            <button type="submit" name="delete" class="btn btn-danger text-white btn-sm">Hapus <i class="bi bi-trash"></i></button>
-                                        </form>
-                                    </td>
+
+        <div class="row justify-content-center mb-5 pt-5">
+            <div class="col-lg-10">
+                <div class="card ">
+                    <div class="card-body">
+                        <div class="col-lg-4">
+                            <input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari...">
+                        </div>
+                        <table class=" table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Harga</th>
+                                    <th>Stok</th>
+                                    <th>Thumbnail</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($produk as $content) { ?>
+                                    <tr>
+                                        <td class="text-center"><?= $no++ ?></td>
+                                        <td class="text-center"><?= $content['name'] ?></td>
+                                        <td class="text-center"><?= number_format($content['price']) ?></td>
+                                        <td class="text-center"><?= $content['stock'] ?></td>
+                                        <td class="text-center"><img src="berkas/<?= $content['image'] ?>" style="height:100px;"></td>
+                                        <td class="text-center">
+                                            <a href="edit.php?id=<?= $content['id_product'] ?>" class="btn btn-warning text-white btn-sm">Ubah <i class="bi bi-pencil-fill"></i></a>
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="id" value="<?= $content['id_product'] ?>">
+                                                <button type="submit" name="delete" class="btn btn-danger text-white btn-sm">Hapus <i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script>
@@ -197,6 +199,7 @@ if (isset($_POST['delete'])) {
         });
     </script>
 
-<source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
+    <source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
 </body>
+
 </html>

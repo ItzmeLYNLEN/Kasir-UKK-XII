@@ -67,19 +67,19 @@ $total = $conn->query("SELECT * FROM tbl_order JOIN products ON tbl_order.id_pro
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-secondary ">
-        <div class="container ">
-            <a class="navbar-brand fw-bold" style="color:#3434cf;" href="#">Warung Kita</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" style="color:#3434cf; font-size: 24px;" href="#">Warung Kita</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="../produk">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../admin">Admin</a>
+                        <a class="nav-link" href="../admin">Admin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php">Pesan</a>
@@ -90,8 +90,8 @@ $total = $conn->query("SELECT * FROM tbl_order JOIN products ON tbl_order.id_pro
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?= $_SESSION['user']['username'] ?>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#3434cf;">
+                            <i class="fas fa-user"></i> <?= $_SESSION['user']['username'] ?>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../logout.php">Keluar</a></li>
@@ -101,6 +101,8 @@ $total = $conn->query("SELECT * FROM tbl_order JOIN products ON tbl_order.id_pro
             </div>
         </div>
     </nav>
+
+
 
 
 
@@ -193,9 +195,9 @@ $total = $conn->query("SELECT * FROM tbl_order JOIN products ON tbl_order.id_pro
                 <div class="card">
                     <h3 class="text-center pt-3">Menu</h3>
                     <div class="card-body">
-                    <div class="col-lg-4">
-                        <input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari...">
-                    </div>
+                        <div class="col-lg-4">
+                            <input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari...">
+                        </div>
                         <table class=" table table-hover">
                             <thead>
                                 <tr>
@@ -217,12 +219,12 @@ $total = $conn->query("SELECT * FROM tbl_order JOIN products ON tbl_order.id_pro
                                         <td><?= $produk['stock'] ?></td>
                                         <td>
                                             <form action="" method="post">
-                                                <input type="number" name="qty" id="qty<?= $produk['id_product'] ?>" class="form-control" value="0" min="1" required>
+                                                <input type="number" name="qty" id="qty<?= $produk['id_product'] ?>" class="form-control" value="0" min="1" style="width: 100px;" required>
                                         </td>
                                         <td class="text-center">
                                             <input type="hidden" name="id_product" value="<?= $produk['id_product'] ?>">
                                             <input type="hidden" name="price" value="<?= $produk['price'] ?>">
-                                            <button type="submit" name="pesan" class="btn btn-warning text-white btn-sm" onclick="return validateQty(<?= $produk['stock'] ?>, <?= $produk['id_product'] ?>)">Tambah</button>
+                                            <button type="submit" name="pesan" class="btn btn-warning text-white btn-md" onclick="return validateQty(<?= $produk['stock'] ?>, <?= $produk['id_product'] ?>)">Tambah</button>
                                             </form>
                                         </td>
                                     </tr>

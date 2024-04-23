@@ -59,12 +59,12 @@ if (isset($_POST['delete'])) {
 
     <nav class="navbar navbar-expand-lg bg-body-secondary ">
         <div class="container ">
-            <a class="navbar-brand fw-bold" href="#" style="color:#3434cf;">Warung Kita</a>
+            <a class="navbar-brand fw-bold" style="color:#3434cf; font-size: 24px;" href="#">Warung Kita</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="../produk">Produk</a>
                     </li>
