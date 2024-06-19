@@ -1,37 +1,34 @@
-<?php
+<?php 
 
 include '../koneksi.php';
 
 session_start();
 if (!isset($_SESSION['user'])) {
-    echo '<script>alert("login dlu ka");
-    location.replace("../login.php")</script>';
+    echo "<script>alert('Mohon login terlebih dahulu')
+    location.replace('../index.php')</script>";
 }
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $produks = $conn->query("SELECT * FROM products WHERE id_product = '$id'")->fetch_assoc();
-}
+$users = $conn->query("SELECT * FROM user");
 
-if (isset($_POST['update'])) {
+if (isset($_POST['simpan'])) {
     $nama = $_POST['nama'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $direktori = "berkas/";
-    $photo = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], $direktori . $photo);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $simpan = $conn->query("UPDATE products SET name = '$nama', price = '$harga', stock = '$stok', image = '$photo'
-    WHERE id_product = '$id'");
+    $simpan = $conn->query("INSERT INTO user VALUES 
+    (NULL, '$nama','$username','$password')");
 
     if ($simpan) {
-        echo '<script>alert("data diupdate");
-        location.replace("index.php")</script>';
+        echo '<script>alert("Data Berhasil Disimpan");
+    location.replace("index.php");</script>';
     } else {
-        echo '<script>alert("data gagal diupdate");
-        location.replace("index.php")</script>';
+        echo '<script>alert("Kurang jago Nyimpennya Luwh");
+    location.replace("index.php");</script>';
     }
 }
+
+
+
 
 ?>
 
@@ -39,17 +36,16 @@ if (isset($_POST['update'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit | Produk</title>
+    <title>Tambah Admin</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-secondary ">
+
+
+<nav class="navbar navbar-expand-lg bg-body-secondary ">
         <div class="container ">
             <a class="navbar-brand fw-bold" style="color:#3434cf; font-size: 24px;" href="#">Warung Kita</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,10 +54,10 @@ if (isset($_POST['update'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.php">Produk</a>
+                        <a class="nav-link" href="../produk">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../admin">Admin</a>
+                        <a class="nav-link active" href="index.php">Admin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../order">Pesan</a>
@@ -84,7 +80,7 @@ if (isset($_POST['update'])) {
             <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="text-center">Tambah Produk</h3>
+                        <h3 class="text-center">Tambah Admin</h3>
                     </div>
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
@@ -92,31 +88,29 @@ if (isset($_POST['update'])) {
                                 <div class="col-lg-12">
                                     <div class="form-grup mb-3">
                                         <label class="form-label" for="">Nama</label>
-                                        <input type="text" required name="nama" placeholder="Nama" class="form-control" value="<?= $produks['name'] ?>">
+                                        <input type="text" required name="nama" placeholder="Nama" class="form-control">
                                     </div>
                                     <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Harga</label>
-                                        <input type="text" required name="harga" placeholder="harga" class="form-control" value="<?= $produks['price'] ?>">
+                                        <label class="form-label" for="">Username</label>
+                                        <input type="text" required name="username" placeholder="Username" class="form-control">
                                     </div>
                                     <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Stok</label>
-                                        <input type="text" required name="stok" placeholder="stok" class="form-control" value="<?= $produks['stock'] ?>">
+                                        <label class="form-label" for="">Password</label>
+                                        <input type="text" required name="password" placeholder="Password" class="form-control">
                                     </div>
-                                    <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Thumbnail</label>
-                                        <input type="file" id="image" required name="image" class="form-control">
+                                    <div class="form-group text-end">
+                                        <button type="submit" name="simpan" class="btn btn-success btn-lg w-100 mt-4">Tambah</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group text-end">
-                                <button type="submit" name="update" class="btn btn-success btn-lg w-100 mt-4">Ubah</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
+    <source src="../bootstrap/js/bootstrap.bundle.min.js" type="">
+
+    
+</body>
 </html>

@@ -10,25 +10,6 @@ if (!isset($_SESSION['user'])) {
 
 $produk = $conn->query("SELECT * FROM products");
 
-if (isset($_POST['simpan'])) {
-    $nama = $_POST['nama'];
-    $harga = $_POST['harga'];
-    $stok = $_POST['stok'];
-    $direktori = "berkas/";
-    $photo = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], $direktori . $photo);
-
-    $simpan = $conn->query("INSERT INTO products VALUES 
-    (NULL, '$nama','$harga','$stok', '$photo')");
-
-    if ($simpan) {
-        echo '<script>alert("Data Berhasil Disimpan");
-    location.replace("index.php");</script>';
-    } else {
-        echo '<script>alert("Kurang jago Nyimpennya Luwh");
-    location.replace("index.php");</script>';
-    }
-}
 
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
@@ -90,50 +71,24 @@ if (isset($_POST['delete'])) {
         </div>
     </nav>
 
-    <div class="container pt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Tambah Produk</h3>
-                    </div>
-                    <div class="card-body">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Nama</label>
-                                        <input type="text" required name="nama" placeholder="Nama" class="form-control">
-                                    </div>
-                                    <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Harga</label>
-                                        <input type="text" required name="harga" placeholder="harga" class="form-control">
-                                    </div>
-                                    <div class="form-grup mb-3">
-                                        <label class="form-label" for="">stok</label>
-                                        <input type="text" required name="stok" placeholder="stok" class="form-control">
-                                    </div>
-                                    <div class="form-grup mb-3">
-                                        <label class="form-label" for="">Thumbnail</label>
-                                        <input type="file" id="image" required name="image" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group text-end">
-                                <button type="submit" name="simpan" class="btn btn-success btn-lg w-100 mt-4">Tambah</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+    <div class="header mt-3">
+        <div class="d-flex justify-content-between">
+            <h5 class="m-0">Data Produk</h5>
+
+            <a href="create.php" class="btn btn-sm btn-primary">Tambah Produk</a>
         </div>
+    </div>
+
+    <hr>
 
 
-        <div class="row justify-content-center mb-5 pt-5">
-            <div class="col-lg-10">
+
+        <div class="row justify-content-center mb-5 ">
+            <div class="col-lg-12">
                 <div class="card ">
                     <div class="card-body">
-                        <div class="col-lg-4">
+                        <div class="col-md-4">
                             <input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari...">
                         </div>
                         <table class=" table table-hover">
