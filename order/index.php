@@ -30,7 +30,7 @@ if (isset($_POST['pesan'])) {
     $qty = $_POST['qty'];
     $jumlah = $price * $qty;
 
-    $simpan = $conn->query("INSERT INTO tbl_order VALUES(NULL,'$no_order','$user','$qty','1','0','0',NULL,'$id_produk','$nama_cust','$order_type','$price','$jumlah')");
+    $simpan = $conn->query("INSERT INTO tbl_order VALUES(NULL,'$no_order','$user','$qty','1','0','0',NOW(),'$id_produk','$nama_cust','$order_type','$price','$jumlah')");
 
     if ($simpan > 0) {
         echo "<script>
